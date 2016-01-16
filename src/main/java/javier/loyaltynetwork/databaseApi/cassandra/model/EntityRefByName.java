@@ -20,7 +20,7 @@ public class EntityRefByName
         reference = newRef;
         name = newRef.getName();
     }
-
+    ///Getters for cassandra
     public String getName()
     {
         return name;
@@ -29,6 +29,17 @@ public class EntityRefByName
     public EntityRef getReference()
     {
         return reference;
+    }
+    
+    //setters
+    public void setName(String newName)
+    {
+    	name = newName;
+    }
+    public void setReference(EntityRef newReference)
+    {
+    	reference = newReference;
+    	name = newReference.getName();
     }
 
 

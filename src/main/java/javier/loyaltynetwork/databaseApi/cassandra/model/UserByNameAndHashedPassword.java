@@ -46,5 +46,56 @@ public class UserByNameAndHashedPassword
     {
         return new User(id, name, hashedPassword, mission, affiliations);
     }
-
+    ///getters for cassandra
+    public String getName()
+    {
+    	return name;
+    }
+    public String getHashedPassword()
+    {
+    	return hashedPassword;
+    }
+    public UUID getId()
+    {
+    	return id;
+    }
+    public String getMission()
+    {
+    	return mission;
+    }
+    public Set<EntityRef> getAffiliations()
+    {
+    	return affiliations;
+    }
+    public EntityRef getReference()
+    {
+    	return reference;
+    }
+    
+    //setters for cassadnra
+    public void setName(String newName)
+    {
+    	name = newName;
+    }
+    public void setHashedPassword(String newPassword)
+    {
+    	hashedPassword = newPassword;
+    }
+    public void setId(UUID newId)
+    {
+    	id = newId;
+    }
+    public void setMission(String newMission)
+    {
+    	mission = newMission;
+    }
+    public void setAffiliations(Set<EntityRef> newAffiliations)
+    {
+    	affiliations = newAffiliations;
+    }
+    public void setReference(EntityRef newRef)
+    {
+    	reference = newRef;
+    }
 }
+

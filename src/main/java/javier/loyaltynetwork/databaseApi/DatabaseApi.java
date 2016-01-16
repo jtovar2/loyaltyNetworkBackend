@@ -170,7 +170,7 @@ public class DatabaseApi
         newPost.setPostId(UUID.randomUUID());
         newPost.setCreationTime(UUIDs.timeBased());
         savePost(newPost);
-        return newPost.getId();
+        return newPost.getPostId();
     }
     //User related stuff
     public User getUser(EntityRef userRef)

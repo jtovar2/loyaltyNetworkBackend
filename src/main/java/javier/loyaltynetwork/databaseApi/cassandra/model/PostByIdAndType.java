@@ -16,6 +16,7 @@ import java.util.UUID;
 @Table(keyspace = "loyalty_network", name = "posts_creator_id_and_entity_type_and_creation")
 public class PostByIdAndType
 {
+	//TODO change entity_type column to creator_type, also change class variable entityType to creatorType
     @PartitionKey(0)
     @Column(name = "creator_id")
     UUID creatorId;
@@ -50,5 +51,68 @@ public class PostByIdAndType
     {
         return new Post(postId, creator, creationTime, title, body);
     }
+    
+    //setters for casssandra
+    public void setCreatorId(UUID newCreatorId)
+    {
+    	creatorId = newCreatorId;
+    }
+    public void setEntityType(String newEntityType)
+    {
+    	entityType = newEntityType;
+    }
+    public void setCreationTime(UUID newCreationTime)
+    {
+    	creationTime = newCreationTime;
+    }
+    public void setBody(String newBody)
+    {
+    	body = newBody;
+    }
+    public void setTitle(String newTitle)
+    {
+    	title = newTitle;
+    }
+    public void setCreator(EntityRef newCreator)
+    {
+    	creator = newCreator;
+    	creatorId = newCreator.getId();
+    	entityType = newCreator.getType();
+    }
+    public void setPostId(UUID newPostId)
+    {
+    	postId = newPostId;
+    }
+    
+    //getters for cassandra
+    public UUID getCreatorId()
+    {
+    	return creatorId;
+    }
+    public String getEntityType()
+    {
+    	return entityType;
+    }
+    public UUID getCreationTime()
+    {
+    	return creationTime;
+    }
+    public String getBody()
+    {
+    	return body;
+    }
+    public String getTitle()
+    {
+    	return title;
+    }
+    public EntityRef getCreator()
+    {
+    	return creator;
+    }
+    public UUID getPostId()
+    {
+    	return postId;
+    }
+    
 
 }

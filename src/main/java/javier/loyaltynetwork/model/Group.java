@@ -6,6 +6,7 @@ import com.datastax.driver.mapping.annotations.PartitionKey;
 import com.datastax.driver.mapping.annotations.Table;
 
 import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -24,11 +25,11 @@ public class Group{
     @Frozen
     EntityRef leader;
     @Frozen
-    HashSet<EntityRef> admins;
+    Set<EntityRef> admins;
     @Frozen
-    HashSet<EntityRef> members;
+    Set<EntityRef> members;
     @Frozen
-    HashSet<EntityRef> followers;
+    Set<EntityRef> followers;
 
     public Group()
     {}
@@ -72,17 +73,17 @@ public class Group{
         return leader;
     }
 
-    public HashSet<EntityRef> getAdmins()
+    public Set<EntityRef> getAdmins()
     {
         return admins;
     }
 
-    public HashSet<EntityRef> getMembers()
+    public Set<EntityRef> getMembers()
     {
         return members;
     }
 
-    public HashSet<EntityRef> getFollowers()
+    public Set<EntityRef> getFollowers()
     {
         return followers;
     }
@@ -126,12 +127,13 @@ public class Group{
     {
         leader = newLeader;
     }
-
-    ///User and group relationships
-	public void setId(UUID newId)
+    public void setId(UUID newId)
 	{
 		id = newId;
 	}
+    
+    ///User and group relationships
+	
 
     public void addFollower(EntityRef newFollower)
     {
@@ -145,7 +147,7 @@ public class Group{
         }
         if(followers == null)
         {
-            followers = new HashSet<EntityRef>();
+            followers = (Set<EntityRef>) new HashSet<EntityRef>();
         }
         followers.add(newFollower);
     }
@@ -163,7 +165,7 @@ public class Group{
 
         if(members == null)
         {
-            members = new HashSet<EntityRef>();
+            members = (Set<EntityRef>) new HashSet<EntityRef>();
         }
         members.add(newMember);
     }
@@ -178,7 +180,7 @@ public class Group{
         }
         if(admins == null)
         {
-            admins = new HashSet<EntityRef>();
+            admins = (Set<EntityRef>) new HashSet<EntityRef>();
         }
         admins.add(newAdmin);
     }

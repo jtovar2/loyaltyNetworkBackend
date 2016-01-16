@@ -46,10 +46,23 @@ public class Post
 	public void setCreator(EntityRef newCreator)
     	{
 	       	creator = newCreator;
-	        creatorId = newCreator.getCreatorId();
+	        creatorId = newCreator.getId();
         	entityType = newCreator.getType();
     	}
-
+	public void setTitle(String newTitle)
+	{
+		title = newTitle;
+	}
+	public void setBody(String newBody)
+	{
+		body = newBody;
+	}
+	public void setEntityType(String newEntityType)
+	{
+		entityType = newEntityType;
+	}
+	
+	
 	//getters for casandra
     public String getTitle()
     {
@@ -59,20 +72,33 @@ public class Post
     {
         return body;
     }
-    public UUID getId()
+    public UUID getPostId()
     {
         return postId;
     }
-h
+
     public EntityRef getCreator()
     {
         return creator;
     }
-
+    public UUID getCreationTIme()
+    {
+    	return creationTime;
+    }
+    public UUID getCreatorId()
+    {
+    	return creatorId;
+    }
+    public String getEntityType()
+    {
+    	return entityType;
+    }
+    
     public Date getTime()
     {
         return new Date(creationTime.timestamp());
     }
+    
 
     public Post(UUID newPostId, EntityRef newCreator, UUID newCreationTime, String newTitle, String newBody)
     {
