@@ -61,6 +61,10 @@ public class Post
 	{
 		entityType = newEntityType;
 	}
+	public void setCreatorId(UUID newCreatorId)
+	{
+	    creatorId = newCreatorId;
+	}
 	
 	
 	//getters for casandra
