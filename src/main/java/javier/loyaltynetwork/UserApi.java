@@ -51,7 +51,7 @@ public class UserApi
 	}
 	
 	
-	@GET
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/getuser")
 	public User getUser(EntityRef userRef)

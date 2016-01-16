@@ -26,7 +26,7 @@ public class PostByIdAndType
     String entityType;
 
 
-    @ClusteringColumn(2)
+    @ClusteringColumn(0)
     @Column(name = "creation_time")
     UUID creationTime;
 
