@@ -15,6 +15,11 @@ public class EntityRefByName
     @Frozen
     EntityRef reference;
 
+    public EntityRefByName()
+    {
+    }
+    
+    
     public EntityRefByName(EntityRef newRef)
     {
         reference = newRef;
