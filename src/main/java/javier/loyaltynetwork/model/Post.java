@@ -81,7 +81,7 @@ public class Post
     {
         return creator;
     }
-    public UUID getCreationTIme()
+    public UUID getCreationTime()
     {
     	return creationTime;
     }
