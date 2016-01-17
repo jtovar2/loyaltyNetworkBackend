@@ -16,7 +16,6 @@ import java.util.UUID;
  */
 public class DatabaseApi
 {
-
     MappingManager manager;
     Mapper<Group> groupMapper;
     Mapper<User> userMapper;
@@ -30,10 +29,10 @@ public class DatabaseApi
     //This constant is used to determine the length of time a post is relevant
     static Long TIME_WINDOW = new Long(12*60*60*1000);
 
-    public DatabaseApi(Session session)
+    public DatabaseApi(MappingManager newManager)
     {
-        manager = new MappingManager(session);
-	manager.udtCodec(EntityRef.class);
+        manager = newManager;
+        manager.udtCodec(EntityRef.class);
         groupMapper = manager.mapper(Group.class);
         userMapper = manager.mapper(User.class);
         postMapper = manager.mapper(Post.class);
@@ -218,6 +217,25 @@ public class DatabaseApi
         return refMapper.get(username).getReference();
     }
 
+    
+    //For groups
+    public EntityRef addGroup(Group newGroup)
+    {
+        saveGroupWithNameChange(newGroup);
+        return newGroup.getReference();
+    }
+    public EntityRef changeGroupName(EntityRef groupRef, String newName)
+    {
+        Group group = groupMapper.get(groupRef.getId());
+        group.setName(newName);
+        saveGroupWithNameChange(group);
+        return group.getReference();
+    }
+    public void changeGroupMission(EntityRef groupRef, String newMission)
+    {
+        Group group = groupMapper.get(groupRef);
+        group.setMission(newMission);
+    }
 
 
 }

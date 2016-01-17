@@ -26,8 +26,7 @@ public class UserApi
 	
 	public UserApi()
 	{
-		Cassandra.DB.connect();
-		dbApi = new DatabaseApi(Cassandra.DB.getSession());
+		dbApi = new DatabaseApi(Cassandra.DB.getManager());
 	}
 	
 	@GET

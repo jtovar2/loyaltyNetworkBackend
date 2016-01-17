@@ -2,6 +2,7 @@ package javier.loyaltynetwork.databaseApi.cassandra;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
+import com.datastax.driver.mapping.MappingManager;
 
 /**
  * Created by JXT0589 on 1/9/2016.
@@ -14,6 +15,7 @@ public enum Cassandra
 
     private Session session;
     private Cluster cluster;
+    private MappingManager mappingManager;
 
     public void connect()
     {
@@ -33,5 +35,19 @@ public enum Cassandra
     public Session getSession()
     {
         return session;
+    }
+    
+    public MappingManager getManager()
+    {
+        if(session == null)
+        {
+            connect();
+            return mappingManager = new MappingManager(session);
+        }
+        else
+        {
+            return mappingManager;
+        }
+        
     }
 }
