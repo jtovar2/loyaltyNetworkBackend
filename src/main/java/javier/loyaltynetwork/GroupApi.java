@@ -84,7 +84,7 @@ public class GroupApi
     
     @POST
     @Path("/getgroup")
-    public Group getGroup(EntityReg groupRef)
+    public Group getGroup(EntityRef groupRef)
     {
         return dbApi.getGroup(groupRef);
     }
