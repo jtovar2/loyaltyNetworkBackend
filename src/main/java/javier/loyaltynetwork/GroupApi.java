@@ -13,6 +13,7 @@ import javier.loyaltynetwork.databaseApi.cassandra.Cassandra;
 import javier.loyaltynetwork.model.BooleanBean;
 import javier.loyaltynetwork.model.EntityRef;
 import javier.loyaltynetwork.model.User;
+import javier.loyaltynetwork.model.UserAndGroupRefContainer;
 import javier.loyaltynetwork.model.Group;
 @Path("/groupapi")
 @Produces(MediaType.APPLICATION_JSON)
@@ -29,36 +30,36 @@ public class GroupApi
     //Adders for group and user relationships
     @POST
     @Path("/addfollower")
-    public void addGroupFollower(User user, EntityRef groupRef)
+    public void addGroupFollower(UserAndGroupRefContainer container)
     {
-        dbApi.addGroupFollower(user, groupRef);
+        dbApi.addGroupFollower(container.getUser(), container.getGroupRef());
     }
     @POST
     @Path("/addmember")
-    public void addGroupMember(User user, EntityRef groupRef)
+    public void addGroupMember(UserAndGroupRefContainer container)
     {
-        dbApi.addGroupMember(user, groupRef);
+        dbApi.addGroupMember(container.getUser(), container.getGroupRef());
     }
     
     @POST
     @Path("/setleader")
-    public void setGroupLeader(User user, EntityRef groupRef)
+    public void setGroupLeader(UserAndGroupRefContainer container)
     {
-        dbApi.setGroupLeader(user, groupRef);
+        dbApi.setGroupLeader(container.getUser(), container.getGroupRef());
     }
     
     //removers for group and user relationships
     @POST
     @Path("/removemember")
-    public void removeGroupMember(User user, EntityRef groupRef)
+    public void removeGroupMember(UserAndGroupRefContainer container)
     {
-        dbApi.removeGroupMember(user, groupRef);
+        dbApi.removeGroupMember(container.getUser(), container.getGroupRef());
     }
     @POST
     @Path("/removefollower")
-    public void removeGroupFollower(User user, EntityRef groupRef)
+    public void removeGroupFollower(UserAndGroupRefContainer container)
     {
-        dbApi.removeGroupFollower(user, groupRef);
+        dbApi.removeGroupFollower(container.getUser(), container.getGroupRef());
         
     }
     @POST
