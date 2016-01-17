@@ -118,11 +118,6 @@ public class Group{
         mission = newMission;
     }
 
-    public void setLeader(User newLeader)
-    {
-        leader = newLeader.getReference();
-    }
-
     public void setLeader(EntityRef newLeader)
     {
         leader = newLeader;
