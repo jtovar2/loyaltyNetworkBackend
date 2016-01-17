@@ -6,6 +6,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.datastax.driver.core.utils.UUIDs;
+
 import javier.loyaltynetwork.databaseApi.DatabaseApi;
 import javier.loyaltynetwork.databaseApi.cassandra.Cassandra;
 import javier.loyaltynetwork.model.BooleanBean;
@@ -63,6 +65,7 @@ public class GroupApi
     @Path("/addgroup")
     public EntityRef addGroup(Group newGroup)
     {
+        newGroup.setId(UUIDs.random());
         return dbApi.addGroup(newGroup);
     }
     @POST
