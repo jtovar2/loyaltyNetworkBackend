@@ -82,4 +82,11 @@ public class GroupApi
         dbApi.changeGroupMission(groupRef, newMission);
     }
     
+    @POST
+    @Path("/getgroup")
+    public Group getGroup(EntityReg groupRef)
+    {
+        return dbApi.getGroup(groupRef);
+    }
+    
 }

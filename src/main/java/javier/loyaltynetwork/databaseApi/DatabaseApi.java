@@ -224,6 +224,10 @@ public class DatabaseApi
         saveGroupWithNameChange(newGroup);
         return newGroup.getReference();
     }
+    public Group getGroup(EntityRef groupRef)
+    {
+        return groupMapper.get(groupRef.getId());
+    }
     public EntityRef changeGroupName(EntityRef groupRef, String newName)
     {
         Group group = groupMapper.get(groupRef.getId());
