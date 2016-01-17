@@ -125,6 +125,7 @@ public class Group{
     public void setId(UUID newId)
 	{
 		id = newId;
+		reference = new EntityRef(id, name, "group");
 	}
     
     ///User and group relationships
