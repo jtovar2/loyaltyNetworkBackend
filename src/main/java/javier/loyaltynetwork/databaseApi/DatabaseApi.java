@@ -16,11 +16,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 /**
  * Created by JXT0589 on 1/4/2016.
  */
 public class DatabaseApi
 {
+    public static Logger logger;
     public static String POSTTABLE = "posts_by_creator_id_and_type_and_creation_time";
     MappingManager manager;
     Mapper<Group> groupMapper;
@@ -45,6 +47,7 @@ public class DatabaseApi
         refMapper = manager.mapper(EntityRefByName.class);
         postByIdAndTypeMapper = manager.mapper(PostByIdAndType.class);
         userByNameAndHashedPasswordMapper = manager.mapper(UserByNameAndHashedPassword.class);
+        logger = Logger.getLogger("database api");
 
 	//refUDTMapper = manager.udtMapper(EntityRef.class);
 
@@ -185,7 +188,7 @@ public class DatabaseApi
         ArrayList<Post> posts = new ArrayList<Post>();
         for( EntityRef ref : affiliations)
         {
-            Statement postQueryStatement = QueryBuilder.select().all()
+            Statement postQueryStatement = QueryBuilder.select()
                     .from(Cassandra.DB.KEYSPACE, POSTTABLE)
                     .where(QueryBuilder.eq("creator_id", ref.getId()))
                     .and(QueryBuilder.eq("entity_type", ref.getType()));
@@ -194,6 +197,7 @@ public class DatabaseApi
             List<Post> results = new ArrayList<Post>();
             for(PostByIdAndType postByIdAndType : resultsByIdAndType)
             {
+                logger.info("Post body " + postByIdAndType.getBody());
                 results.add(postByIdAndType.toPost());
             }
             posts.addAll(results);
