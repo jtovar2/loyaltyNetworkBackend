@@ -203,6 +203,11 @@ public class DatabaseApi
         postsContainer.setPosts(posts);
         return postsContainer;
     }
+    
+    public Post getPostById(UUID postId)
+    {
+        return postMapper.get(postId);
+    }
     //User related stuff
     public User getUser(EntityRef userRef)
     {

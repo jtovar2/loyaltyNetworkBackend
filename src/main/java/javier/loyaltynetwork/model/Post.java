@@ -27,9 +27,9 @@ public class Post
     @Column(name = "creator_id")
     private  UUID creatorId;
 
-    @ClusteringColumn(0) @Column(name = "post_id")
+    @PartitionKey @Column(name = "post_id")
     private UUID postId;
-    @PartitionKey(0) @Column(name = "creation_time") private UUID creationTime;
+    @Column(name = "creation_time") private UUID creationTime;
 
 
     public Post()

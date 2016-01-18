@@ -13,6 +13,7 @@ import javier.loyaltynetwork.databaseApi.cassandra.Cassandra;
 import javier.loyaltynetwork.model.EntityRefContainer;
 import javier.loyaltynetwork.model.Post;
 import javier.loyaltynetwork.model.PostContainer;
+import javier.loyaltynetwork.model.UUIDBean;
 @Path("/postapi")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -37,4 +38,12 @@ public class PostApi
         newPost.setCreationTime(UUIDs.timeBased());
         return dbApi.addPost(newPost);
     }
+    
+    @Path("/getpostbyid")
+    @POST
+    public Post getPost(UUIDBean bean)
+    {
+        return dbApi.getPostById(bean.getId());
+    }
+    
 }
