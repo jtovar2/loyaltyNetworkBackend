@@ -1,13 +1,18 @@
 package javier.loyaltynetwork.databaseApi;
 
+import com.datastax.driver.mapping.Result;
 import com.datastax.driver.core.Session;
+import com.datastax.driver.core.Statement;
+import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.utils.UUIDs;
 import com.datastax.driver.mapping.Mapper;
 //import com.datastax.driver.mapping.UDTMapper;
 import com.datastax.driver.mapping.MappingManager;
 import javier.loyaltynetwork.model.*;
+import javier.loyaltynetwork.databaseApi.cassandra.Cassandra;
 import javier.loyaltynetwork.databaseApi.cassandra.model.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -16,6 +21,7 @@ import java.util.UUID;
  */
 public class DatabaseApi
 {
+    public static String POSTTABLE = "posts_by_creator_id_and_type_and_creation_time";
     MappingManager manager;
     Mapper<Group> groupMapper;
     Mapper<User> userMapper;
@@ -95,7 +101,7 @@ public class DatabaseApi
 
         user.removeAffiliation(groupRef);
         group.removeFollower(userRef);
-        //save entities
+        //save entitiesosts_by_creator_id_and_type_and_creation_time
         saveGroup(group);
         saveUser(user);
     }
@@ -163,13 +169,34 @@ public class DatabaseApi
 
     //Post related stuff
 
-    public UUID insertPost(Post newPost, EntityRef entityRef)
+    public Post addPost(Post newPost)
     {
-        newPost.setCreator(entityRef);
+        newPost.setCreator(newPost.getCreator());
         newPost.setPostId(UUID.randomUUID());
         newPost.setCreationTime(UUIDs.timeBased());
         savePost(newPost);
-        return newPost.getPostId();
+        return newPost;
+    }
+    
+    public PostContainer getPostsByCreatorId(EntityRefContainer affiliationsContainer)
+    {
+        PostContainer postsContainer = new PostContainer();
+        ArrayList<EntityRef> affiliations = (ArrayList<EntityRef>) affiliationsContainer.getEntityReferences();
+        ArrayList<Post> posts = new ArrayList<Post>();
+        for( EntityRef ref : affiliations)
+        {
+            Statement postQueryStatement = QueryBuilder.select()
+                    .from(Cassandra.DB.KEYSPACE, POSTTABLE)
+                    .where(QueryBuilder.eq("creator_id", ref.getId()))
+                    .and(QueryBuilder.eq("entity_type", ref.getType()))
+                    .and(QueryBuilder.gt("creation_time", UUIDs.startOf(System.currentTimeMillis() - TIME_WINDOW)))
+                    .and(QueryBuilder.lt("creation_time", UUIDs.endOf(System.currentTimeMillis())));
+            
+            List<Post> results = postMapper.mapAliased(Cassandra.DB.getSession().execute(postQueryStatement)).all();
+            posts.addAll(results);
+        }
+        postsContainer.setPosts(posts);
+        return postsContainer;
     }
     //User related stuff
     public User getUser(EntityRef userRef)

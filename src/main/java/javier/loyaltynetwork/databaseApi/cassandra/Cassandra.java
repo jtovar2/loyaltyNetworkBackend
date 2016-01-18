@@ -16,14 +16,12 @@ public enum Cassandra
     private Session session;
     private Cluster cluster;
     private MappingManager mappingManager;
-
+    public String IP_ADDRESS = "127.0.0.1";
+    public String USERNAME = "cassandra";
+    public String PASSWORD = "homedepot";
+    public String KEYSPACE = "loyalty_network";
     public void connect()
     {
-        String IP_ADDRESS = "127.0.0.1";
-        String USERNAME = "cassandra";
-        String PASSWORD = "homedepot";
-        int PORT = 9042;
-        String KEYSPACE = "loyalty_network";
 
         if( cluster == null && session == null)
         {
