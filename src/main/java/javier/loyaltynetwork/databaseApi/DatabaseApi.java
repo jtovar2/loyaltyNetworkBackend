@@ -186,6 +186,7 @@ public class DatabaseApi
         PostContainer postsContainer = new PostContainer();
         ArrayList<EntityRef> affiliations = (ArrayList<EntityRef>) affiliationsContainer.getEntityReferences();
         ArrayList<Post> posts = new ArrayList<Post>();
+        
         for( EntityRef ref : affiliations)
         {
             Statement postQueryStatement = QueryBuilder.select()
@@ -193,7 +194,7 @@ public class DatabaseApi
                     .where(QueryBuilder.eq("creator_id", ref.getId()))
                     .and(QueryBuilder.eq("entity_type", ref.getType()));
             
-            List<PostByIdAndType> resultsByIdAndType = postByIdAndTypeMapper.mapAliased(Cassandra.DB.getSession().execute(postQueryStatement)).all();
+            List<PostByIdAndType> resultsByIdAndType = postByIdAndTypeMapper.map(Cassandra.DB.getSession().execute(postQueryStatement)).all();
             List<Post> results = new ArrayList<Post>();
             for(PostByIdAndType postByIdAndType : resultsByIdAndType)
             {
@@ -202,6 +203,15 @@ public class DatabaseApi
             }
             posts.addAll(results);
         }
+        
+        
+        /*
+        for( EntityRef ref : affiliations)
+        {
+             PostByIdAndType resultsByIdAndType = postByIdAndTypeMapper.get(ref.getId(), ref.getType());
+            
+        }
+        */
         postsContainer.setPosts(posts);
         return postsContainer;
     }
