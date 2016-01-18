@@ -1,6 +1,7 @@
 package javier.loyaltynetwork.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 @SuppressWarnings("serial")
 public class EntityRefContainer implements Serializable
@@ -17,5 +18,13 @@ public class EntityRefContainer implements Serializable
     public List<EntityRef> getEntityReferences()
     {
         return refs;
+    }
+    public void addRef(EntityRef ref)
+    {
+        if(refs == null)
+        {
+            refs = new ArrayList<EntityRef>();
+        }
+        refs.add(ref);
     }
 }

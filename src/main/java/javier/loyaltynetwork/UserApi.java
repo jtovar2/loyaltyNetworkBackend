@@ -14,6 +14,7 @@ import javier.loyaltynetwork.databaseApi.DatabaseApi;
 import javier.loyaltynetwork.databaseApi.cassandra.Cassandra;
 import javier.loyaltynetwork.model.BooleanBean;
 import javier.loyaltynetwork.model.EntityRef;
+import javier.loyaltynetwork.model.EntityRefContainer;
 import javier.loyaltynetwork.model.User;
 
 
@@ -61,8 +62,11 @@ public class UserApi
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/lookupuser/{username}")
-	public EntityRef lookupUsername(@PathParam("username") String username)
+	public EntityRefContainer lookupUsername(@PathParam("username") String username)
 	{
-		return dbApi.getEntityRef(username);
+	    EntityRefContainer container = new EntityRefContainer();
+	    
+		container.addRef(dbApi.getEntityRef(username));
+		return container;
 	}
 }
