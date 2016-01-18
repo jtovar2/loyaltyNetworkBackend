@@ -46,7 +46,8 @@ public class PostByIdAndType
         creatorId = newCreator.getId();
         entityType = newCreator.getType();
     }
-
+    public PostByIdAndType()
+    {}
     public Post toPost()
     {
         return new Post(postId, creator, creationTime, title, body);
