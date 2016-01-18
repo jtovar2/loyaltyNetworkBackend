@@ -6,6 +6,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.datastax.driver.core.utils.UUIDs;
+
 import javier.loyaltynetwork.databaseApi.DatabaseApi;
 import javier.loyaltynetwork.databaseApi.cassandra.Cassandra;
 import javier.loyaltynetwork.model.EntityRefContainer;
@@ -31,6 +33,8 @@ public class PostApi
     @POST
     public Post addPost(Post newPost)
     {
+        newPost.setPostId(UUIDs.random());
+        newPost.setCreationTime(UUIDs.timeBased());
         return dbApi.addPost(newPost);
     }
 }
