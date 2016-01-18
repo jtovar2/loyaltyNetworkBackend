@@ -36,21 +36,21 @@ public class PostByIdAndType
     EntityRef creator;
     @Column(name = "post_id") UUID postId;
 
-    public PostByIdAndType(UUID newPostId, EntityRef newCreator, UUID newCreationTime, String newTitle, String newBody)
+    public PostByIdAndType(UUID newPostId, EntityRef newCreator, UUID newCreatorId, String newCreatorType, UUID newCreationTime, String newTitle, String newBody)
     {
         postId = newPostId;
         creator = newCreator;
         body = newBody;
         title = newTitle;
         creationTime = newCreationTime;
-        creatorId = newCreator.getId();
-        entityType = newCreator.getType();
+        creatorId = newCreatorId;
+        entityType = newCreatorType;
     }
     public PostByIdAndType()
     {}
     public Post toPost()
     {
-        return new Post(postId, creator, creationTime, title, body);
+        return new Post(postId, creator, creatorId, entityType, creationTime, title, body);
     }
     
     //setters for casssandra

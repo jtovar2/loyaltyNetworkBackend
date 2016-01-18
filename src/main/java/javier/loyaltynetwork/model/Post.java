@@ -114,9 +114,19 @@ public class Post
         creatorId = newCreator.getId();
         entityType = newCreator.getType();
     }
+    public Post(UUID newPostId, EntityRef newCreator, UUID newCreatorId, String newCreatorType, UUID newCreationTime, String newTitle, String newBody)
+    {
+        postId = newPostId;
+        creator = newCreator;
+        body = newBody;
+        title = newTitle;
+        creationTime = newCreationTime;
+        creatorId = newCreatorId;
+        entityType = newCreatorType;
+    }
 
     public PostByIdAndType toPostByIdAndType()
     {
-        return new PostByIdAndType(postId, creator, creationTime, title, body);
+        return new PostByIdAndType(postId, creator, creatorId, entityType, creationTime, title, body);
     }
 }
