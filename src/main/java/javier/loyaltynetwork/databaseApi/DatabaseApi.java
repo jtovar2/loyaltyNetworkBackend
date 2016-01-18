@@ -185,7 +185,7 @@ public class DatabaseApi
         ArrayList<Post> posts = new ArrayList<Post>();
         for( EntityRef ref : affiliations)
         {
-            Statement postQueryStatement = QueryBuilder.select()
+            Statement postQueryStatement = QueryBuilder.select().all()
                     .from(Cassandra.DB.KEYSPACE, POSTTABLE)
                     .where(QueryBuilder.eq("creator_id", ref.getId()))
                     .and(QueryBuilder.eq("entity_type", ref.getType()))
