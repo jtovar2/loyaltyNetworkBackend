@@ -98,10 +98,10 @@ public class Post
     	return entityType;
     }
     
-    public Date getTime()
-    {
-        return new Date(creationTime.timestamp());
-    }
+//    public Date getTime()
+//    {
+//        return new Date(creationTime.timestamp());
+//    }
     
 
     public Post(UUID newPostId, EntityRef newCreator, UUID newCreationTime, String newTitle, String newBody)
