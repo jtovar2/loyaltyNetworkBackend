@@ -188,9 +188,7 @@ public class DatabaseApi
             Statement postQueryStatement = QueryBuilder.select().all()
                     .from(Cassandra.DB.KEYSPACE, POSTTABLE)
                     .where(QueryBuilder.eq("creator_id", ref.getId()))
-                    .and(QueryBuilder.eq("entity_type", ref.getType()))
-                    .and(QueryBuilder.gt("creation_time", UUIDs.startOf(System.currentTimeMillis() - TIME_WINDOW)))
-                    .and(QueryBuilder.lt("creation_time", UUIDs.endOf(System.currentTimeMillis())));
+                    .and(QueryBuilder.eq("entity_type", ref.getType()));
             
             List<PostByIdAndType> resultsByIdAndType = postByIdAndTypeMapper.mapAliased(Cassandra.DB.getSession().execute(postQueryStatement)).all();
             List<Post> results = new ArrayList<Post>();
