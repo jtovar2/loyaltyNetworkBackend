@@ -1,8 +1,9 @@
 package javier.loyaltynetwork.model;
 
+import java.io.Serializable;
 import java.util.List;
-
-public class EntityRefContainer
+@SuppressWarnings("serial")
+public class EntityRefContainer implements Serializable
 {
     List<EntityRef> refs;
     
