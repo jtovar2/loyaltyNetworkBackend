@@ -13,7 +13,7 @@ import java.util.UUID;
 /**
  * Created by JXT0589 on 1/9/2016.
  */
-@Table(keyspace = "loyalty_network", name = "posts_creator_id_and_entity_type_and_creation")
+@Table(keyspace = "loyalty_network", name = "posts_by_creator_id_and_type_and_creation_time")
 public class PostByIdAndType
 {
 	//TODO change entity_type column to creator_type, also change class variable entityType to creatorType
