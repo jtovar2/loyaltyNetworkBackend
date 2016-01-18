@@ -192,7 +192,12 @@ public class DatabaseApi
                     .and(QueryBuilder.gt("creation_time", UUIDs.startOf(System.currentTimeMillis() - TIME_WINDOW)))
                     .and(QueryBuilder.lt("creation_time", UUIDs.endOf(System.currentTimeMillis())));
             
-            List<Post> results = postMapper.mapAliased(Cassandra.DB.getSession().execute(postQueryStatement)).all();
+            List<PostByIdAndType> resultsByIdAndType = postByIdAndTypeMapper.mapAliased(Cassandra.DB.getSession().execute(postQueryStatement)).all();
+            List<Post> results = new ArrayList<Post>();
+            for(PostByIdAndType postByIdAndType : resultsByIdAndType)
+            {
+                results.add(postByIdAndType.toPost());
+            }
             posts.addAll(results);
         }
         postsContainer.setPosts(posts);
