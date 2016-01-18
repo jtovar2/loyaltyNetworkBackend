@@ -35,7 +35,7 @@ public class DatabaseApi
     //TODO make this class not static and to allow saving and reading from cassandra
 
     //This constant is used to determine the length of time a post is relevant
-    static Long TIME_WINDOW = new Long(12*60*60*1000);
+    static Long TIME_WINDOW = new Long(10*60*1000);
 
     public DatabaseApi(MappingManager newManager)
     {
@@ -192,7 +192,8 @@ public class DatabaseApi
             Statement postQueryStatement = QueryBuilder.select()
                     .from(Cassandra.DB.KEYSPACE, POSTTABLE)
                     .where(QueryBuilder.eq("creator_id", ref.getId()))
-                    .and(QueryBuilder.eq("entity_type", ref.getType()));
+                    .and(QueryBuilder.eq("entity_type", ref.getType()))
+                    .and(QueryBuilder.gt("creation_time", UUIDs.startOf(System.currentTimeMillis() - TIME_WINDOW)));
             
             List<PostByIdAndType> resultsByIdAndType = postByIdAndTypeMapper.map(Cassandra.DB.getSession().execute(postQueryStatement)).all();
             List<Post> results = new ArrayList<Post>();
